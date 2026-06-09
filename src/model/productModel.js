@@ -20,9 +20,13 @@ const productSchema = new mongoose.Schema({
     productDescription:{
         type:String,
         required: true
-    }
+    },
 
-})
+},
+{
+    timestamps: true
+}
+)
 
 const Product = mongoose.model("products", productSchema);
 
