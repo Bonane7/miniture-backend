@@ -28,12 +28,14 @@ export const creatProduct = async (req, res) => {
 
 //fetch all product
 export const getProducts = async (req, res) => {
+ 
   try {
     const products = await Product.find();
     res.status(200).json({
       message: "Products fetched successfully",
       data: products,
     });
+    
   } catch (error) {
     res.status(500).json({
       message: "Error fetching products",
