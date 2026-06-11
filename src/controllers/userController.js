@@ -41,10 +41,8 @@ const userResponse={
       creadedAt: creatNewUser.createdAt
 
 }
-
-//feedback of all if all is fine
+//feedback of all if is fine
 res.status(201).json({message:"User created successfully", tocken:tocken, user:userResponse})
-
 
 
   } catch (error) {
