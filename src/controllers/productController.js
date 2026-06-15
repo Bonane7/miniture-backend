@@ -1,5 +1,6 @@
 import { response } from "express";
 import Product from "../model/productModel.js";
+import { uploadToCloudinary } from "../utils/uploadToCloudinary.js";
 
 //creat product
 export const creatProduct = async (req, res) => {
@@ -7,11 +8,22 @@ export const creatProduct = async (req, res) => {
     const { productName, productPrice, productCategory, productDescription } =
       req.body;
 
+          // 1. vérifier image
+    if (!req.file) {
+      return res.status(400).json({ message: "Image required" });
+    }
+     // 2. upload vers cloudinary
+    const result = await uploadToCloudinary(req.file.buffer);
+
+
+console.log(req.file);
     const product = new Product({
       productName,
       productPrice,
       productCategory,
       productDescription,
+      imageUrl: result.secure_url,
+      imagePublicId: result.public_id
     });
     const saveProduct = await product.save();
     res.status(201).json({
@@ -19,7 +31,9 @@ export const creatProduct = async (req, res) => {
       data: saveProduct,
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({
+      
       message: "Product failed create",
       error: error.message,
     });

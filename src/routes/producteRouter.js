@@ -3,6 +3,7 @@ import express from "express";
 
 import { verifyToken } from "../middlewares/authMidlewares.js";
 import { verifyAdmin } from "../middlewares/roleMiddleware.js";
+import upload from "../middlewares/upload.js";
 
 
 const productRouter =express.Router();
@@ -12,6 +13,7 @@ productRouter.post(
   "/create",
   verifyToken,
   verifyAdmin,
+  upload.single("image"),
   creatProduct
 );
 // READ (GET all products)
