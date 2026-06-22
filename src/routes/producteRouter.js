@@ -16,17 +16,14 @@ productRouter.post(
   upload.single("image"),
   creatProduct
 );
-// READ (GET all products)
+// READ (GET all products) - public access
 productRouter.get(
   "/getProducts",
-  verifyToken,
   getProducts
 );
-//READ one product
-// productRouter.get("/getproduct/:id", getProduct);
+//READ one product - public access
 productRouter.get(
   "/getproduct/:id",
-  verifyToken,
   getProduct
 );
 //Delete one product
